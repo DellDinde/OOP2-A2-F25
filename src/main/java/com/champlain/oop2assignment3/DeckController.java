@@ -56,6 +56,10 @@ public class DeckController implements ScoringStrategy{
     private final Hand aHand = new Hand();
 
     /**
+     * To hold the score of cards depending on the chosen strategy
+     */
+    private int aKeepScore;
+    /**
      * Initializes the controller and sets up the UI components.
      * This method is called after the FXML file has been loaded.
      */
@@ -122,7 +126,8 @@ public class DeckController implements ScoringStrategy{
                     break;
                 case "Number Of Aces":
                     // TODO: Replace the following line of code.
-                    this.aScoreLabel.setText("Number of aces...");
+                    this.aKeepScore = this.NumberOfAcesStrategy();
+                    this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
                     break;
                 default:
                     this.aScoreLabel.setText("This should not happen! You messed up.");
@@ -155,7 +160,10 @@ public class DeckController implements ScoringStrategy{
         this.aHandTextArea.setText(this.aHand.toString());
     }
 
-
+    /**<p>
+     ** Calculates the score of cards in the parameter {@code pCards}
+     * </p>
+     * */
     @Override
     public void calculateScore(CardCollection pCards) {
         int numberOfCards = 0;
@@ -166,13 +174,40 @@ public class DeckController implements ScoringStrategy{
         }
     }
 
+    /**
+     * Returns a score corresponding to <b>the number of cards in a hand</b>
+     *
+     * @return a score of type {@code int}.
+     */
     @Override
     public int SimpleCountStrategy() {
-        return 0;
+
+        if (!this.aHand.isEmpty()) {
+            for (Card ignored : this.aHand) {
+                    this.aKeepScore++;
+            }
+        }
+        return this.aKeepScore;
     }
 
+    /**
+     * Returns a score corresponding to <b>the number of Aces in a hand</b>
+     *
+     * @return a score of type {@code int}.
+     * */
     @Override
     public int NumberOfAcesStrategy() {
-        return 0;
+
+        Card keepCards;
+
+        if (!this.aHand.isEmpty()) {
+            for (Card card : this.aHand) {
+                keepCards = card;
+                if (keepCards.getRank() == Rank.ACE) {
+                    this.aKeepScore++;
+                }
+            }
+        }
+        return this.aKeepScore;
     }
 }
