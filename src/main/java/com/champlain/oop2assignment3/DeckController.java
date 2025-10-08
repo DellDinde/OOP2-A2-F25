@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
  * the current state of the deck and hand.
  * </p>
  */
-public class DeckController {
+public class DeckController implements ScoringStrategy{
     /**
      * TextArea for displaying the current state of the deck.
      */
@@ -153,5 +153,26 @@ public class DeckController {
     private void displayCardCollections() {
         this.aDeckTextArea.setText(this.aDeck.toString());
         this.aHandTextArea.setText(this.aHand.toString());
+    }
+
+
+    @Override
+    public void calculateScore(CardCollection pCards) {
+        int numberOfCards = 0;
+        if (pCards != null) {
+            while(pCards.iterator().hasNext()) {
+                numberOfCards++;
+            }
+        }
+    }
+
+    @Override
+    public int SimpleCountStrategy() {
+        return 0;
+    }
+
+    @Override
+    public int NumberOfAcesStrategy() {
+        return 0;
     }
 }
