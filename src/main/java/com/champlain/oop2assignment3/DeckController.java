@@ -121,11 +121,15 @@ public class DeckController implements ScoringStrategy{
         } else {
             switch (choice) {
                 case "Simple Count":
-                    // TODO: Replace the following line of code.
-                    this.aScoreLabel.setText("Simple count...");
+
+                    /// this.aKeepScore = this.SimpleCountStrategy();
+                    /// this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
+                    ///
+                    ///  you can uncomment the code above or comment the following one:
+
+                    this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
                     break;
                 case "Number Of Aces":
-                    // TODO: Replace the following line of code.
                     this.aKeepScore = this.NumberOfAcesStrategy();
                     this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
                     break;
@@ -134,6 +138,7 @@ public class DeckController implements ScoringStrategy{
                     break;
             }
         }
+        this.aKeepScore = 0; // To reset aKeepScore
     }
 
     /**
@@ -166,12 +171,13 @@ public class DeckController implements ScoringStrategy{
      * */
     @Override
     public void calculateScore(CardCollection pCards) {
-        int numberOfCards = 0;
+
         if (pCards != null) {
-            while(pCards.iterator().hasNext()) {
-                numberOfCards++;
+            for (Card c : pCards) {
+                this.aKeepScore++;
             }
         }
+        this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
     }
 
     /**
