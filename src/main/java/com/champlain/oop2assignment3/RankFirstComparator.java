@@ -21,6 +21,7 @@ public class RankFirstComparator implements Comparator<Card> {
      * @return a positive integer, zero or a negative integer as card1 is grater than, less than or equal to card2, respectively,
      * based on the rank first comparison logic.
      */
+    @Override
     public int compare(Card card1, Card card2) {
         int compareRank = card1.getRank().ordinal() - card2.getRank().ordinal();
 
