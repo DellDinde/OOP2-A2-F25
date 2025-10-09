@@ -76,7 +76,7 @@ public class DeckController {
 
     /**
      * Handles the event when the sort button is clicked.
-     * Sorts the deck based on the selected sorting strategy.
+     * Sorts the deck based on the selected sorting strategy, Rank first or suit first.
      * Displays an error alert if no strategy is selected.
      */
     @FXML
@@ -89,17 +89,18 @@ public class DeckController {
             switch (choice) {
                 case "Rank First":
                     // TODO: Replace the following line of code.
-                    this.aDeckTextArea.setText("This does not sort by rank first yet.");
+                    this.aDeck.sort(new RankFirstComparator());
                     break;
                 case "Suit First":
                     // TODO: Replace the following line of code.
-                    this.aDeckTextArea.setText("This does not sort by suit first yet.");
+                    this.aDeck.sort(new SuitFirstComparator());
                     break;
                 default:
                     this.aDeckTextArea.setText("This should not happen! You messed up.");
                     break;
             }
         }
+        this.displayCardCollections();
     }
 
     /**
