@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
  * the current state of the deck and hand.
  * </p>
  */
-public class DeckController {
+public class DeckController implements ScoringStrategy {
     /**
      * TextArea for displaying the current state of the deck.
      */
@@ -54,6 +54,11 @@ public class DeckController {
      * The hand of cards being managed by this controller.
      */
     private final Hand aHand = new Hand();
+
+    /**
+     * To hold the score of cards depending on the chosen strategy
+     */
+    private int aKeepScore;
 
     /**
      * Initializes the controller and sets up the UI components.
@@ -119,6 +124,7 @@ public class DeckController {
                 case "Simple Count":
                     // TODO: Replace the following line of code.
                     this.aScoreLabel.setText("Simple count...");
+                    this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
                     break;
                 case "Number Of Aces":
                     // TODO: Replace the following line of code.
@@ -153,5 +159,30 @@ public class DeckController {
     private void displayCardCollections() {
         this.aDeckTextArea.setText(this.aDeck.toString());
         this.aHandTextArea.setText(this.aHand.toString());
+    }
+
+    /**<p>
+     ** Calculates the score of cards in the parameter {@code pCards}
+     * </p>
+     * */
+    @Override
+    public void calculateScore(CardCollection pCards) {
+
+        if (pCards != null) {
+            for (Card c : pCards) {
+                this.aKeepScore++;
+            }
+        }
+        this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
+    }
+
+    @Override
+    public int SimpleCountStrategy() {
+        return 0;
+    }
+
+    @Override
+    public int NumberOfAcesStrategy() {
+        return 0;
     }
 }
