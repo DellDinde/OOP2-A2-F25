@@ -6,7 +6,7 @@ import java.util.Comparator;
  * A comparator for card objects that prioritizes comparison by rank first.
  * <p>
  *     This class implements the comparator interface for Card objects.The primary comparison is between
- *     the ranks first, if they are equal, it then compares with the suits as a second criterion.
+ *     the ranks first. If they are equal, it then compares with the suits as a second criterion.
  * </p>
  */
 
