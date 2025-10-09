@@ -122,9 +122,14 @@ public class DeckController implements ScoringStrategy {
         } else {
             switch (choice) {
                 case "Simple Count":
-                    // TODO: Replace the following line of code.
-                    this.aScoreLabel.setText("Simple count...");
-                    this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
+                     this.aKeepScore = this.SimpleCountStrategy();
+                     this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
+                    ///
+                    /// to choose which method you want to use for the score,
+                    /// you can comment the code above and uncomment the following one
+                    ///or the other way around
+
+                    // this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
                     break;
                 case "Number Of Aces":
                     // TODO: Replace the following line of code.
@@ -135,6 +140,7 @@ public class DeckController implements ScoringStrategy {
                     break;
             }
         }
+        this.aKeepScore = 0; // Reset the score to zero
     }
 
     /**
@@ -176,9 +182,20 @@ public class DeckController implements ScoringStrategy {
         this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
     }
 
+    /**
+     * Returns a score corresponding to <b>the number of cards in a hand</b>
+     *
+     * @return a score of type {@code int}.
+     */
     @Override
     public int SimpleCountStrategy() {
-        return 0;
+
+        if (!this.aHand.isEmpty()) {
+            for (Card ignored : this.aHand) {
+                this.aKeepScore++;
+            }
+        }
+        return this.aKeepScore;
     }
 
     @Override
