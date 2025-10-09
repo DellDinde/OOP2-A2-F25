@@ -15,11 +15,11 @@ public class RankFirstComparator implements Comparator<Card> {
     /**
      * Compares two card objects first by ranks, then by suit if ranks are equal.
      * @implSpec This implementation uses the ordinal() for both rank and suit comparison, meaning, the order
-     * depends on the enumeration declaration
+     * depends on the enumeration declaration.
      * @param card1 is the first card to be compared
      * @param card2 is the second card to be compared
      * @return a positive integer, zero or a negative integer as card1 is grater than, less than or equal to card2, respectively,
-     * based on the Rank-First comparison logic.
+     * based on the rank first comparison logic.
      */
     public int compare(Card card1, Card card2) {
         int compareRank = card1.getRank().ordinal() - card2.getRank().ordinal();
