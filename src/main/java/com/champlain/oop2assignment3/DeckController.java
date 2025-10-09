@@ -48,8 +48,7 @@ public class DeckController {
     /**
      * The deck of cards being managed by this controller.
      */
-    private final Deck aDeck = new Deck();
-
+    private final Deck aDeck = Deck.getInstance();
     /**
      * The hand of cards being managed by this controller.
      */
