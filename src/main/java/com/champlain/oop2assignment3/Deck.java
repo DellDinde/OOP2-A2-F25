@@ -15,7 +15,7 @@ import java.util.List;
 public class Deck extends CardCollection implements CardSource {
 
     /**
-     *
+     * Hold the single instance of the Deck Class
      */
     private static Deck instance;
 
@@ -28,6 +28,7 @@ public class Deck extends CardCollection implements CardSource {
     /**
      * Constructs a new Deck containing all standard playing cards.
      * The deck is initialized with one of each rank and suit combination.
+     * Only one deck can exits
      */
     private Deck() {
         for (Rank currentRank : Rank.values()) {
@@ -38,8 +39,10 @@ public class Deck extends CardCollection implements CardSource {
     }
 
     /**
+     * Return the single instance of the Deck, it
+     * ensure one deck is created and used through all the program
      *
-     * @return
+     * @return the single instance of the Deck
      */
 
     public static Deck getInstance() {
