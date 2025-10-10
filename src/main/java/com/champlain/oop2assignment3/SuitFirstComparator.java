@@ -20,6 +20,7 @@ public class SuitFirstComparator implements Comparator<Card> {
      * @return a positive integer, zero or a negative integer as card1 is grater than, less than or equal to card2, respectively,
      * based on the suit first comparison logic.
      */
+    @Override
     public int compare(Card card1, Card card2) {
         int compareSuit = card1.getSuit().ordinal() - card2.getSuit().ordinal();
 
