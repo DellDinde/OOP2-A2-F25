@@ -1,9 +1,6 @@
 package com.champlain.oop2assignment3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a deck of playing cards.
@@ -13,6 +10,13 @@ import java.util.List;
  * </p>
  */
 public class Deck extends CardCollection implements CardSource {
+
+    /**
+     * Hold the single instance of the Deck Class
+     */
+    private static Deck instance;
+
+
     /**
      * The list of cards in the deck.
      */
@@ -21,13 +25,28 @@ public class Deck extends CardCollection implements CardSource {
     /**
      * Constructs a new Deck containing all standard playing cards.
      * The deck is initialized with one of each rank and suit combination.
+     * Only one deck can exits
      */
-    public Deck() {
+    private Deck() {
         for (Rank currentRank : Rank.values()) {
             for (Suit currentSuit : Suit.values()) {
                 this.aCards.add(new Card(currentRank, currentSuit));
             }
         }
+    }
+
+    /**
+     * Return the single instance of the Deck, it
+     * ensure one deck is created and used through all the program
+     *
+     * @return the single instance of the Deck
+     */
+
+    public static Deck getInstance() {
+        if (instance == null) {
+            instance = new Deck();
+        }
+        return instance;
     }
 
     /**
@@ -55,5 +74,15 @@ public class Deck extends CardCollection implements CardSource {
      */
     public Iterator<Card> iterator() {
         return this.aCards.iterator();
+    }
+
+    /**
+     * Sorts the deck using the comparator for the card object, allowing custom sorting logic
+     *  such as sorting by rank first then suit.
+     * @param comparator determines the order of the cards.
+     */
+
+    public void sort(Comparator<Card> comparator) {
+        this.aCards.sort(comparator);
     }
 }

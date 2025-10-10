@@ -48,8 +48,7 @@ public class DeckController implements ScoringStrategy{
     /**
      * The deck of cards being managed by this controller.
      */
-    private final Deck aDeck = new Deck();
-
+    private final Deck aDeck = Deck.getInstance();
     /**
      * The hand of cards being managed by this controller.
      */
@@ -81,7 +80,7 @@ public class DeckController implements ScoringStrategy{
 
     /**
      * Handles the event when the sort button is clicked.
-     * Sorts the deck based on the selected sorting strategy.
+     * Sorts the deck based on the selected sorting strategy, Rank first or suit first.
      * Displays an error alert if no strategy is selected.
      */
     @FXML
@@ -94,17 +93,18 @@ public class DeckController implements ScoringStrategy{
             switch (choice) {
                 case "Rank First":
                     // TODO: Replace the following line of code.
-                    this.aDeckTextArea.setText("This does not sort by rank first yet.");
+                    this.aDeck.sort(new RankFirstComparator());
                     break;
                 case "Suit First":
                     // TODO: Replace the following line of code.
-                    this.aDeckTextArea.setText("This does not sort by suit first yet.");
+                    this.aDeck.sort(new SuitFirstComparator());
                     break;
                 default:
                     this.aDeckTextArea.setText("This should not happen! You messed up.");
                     break;
             }
         }
+        this.displayCardCollections();
     }
 
     /**
