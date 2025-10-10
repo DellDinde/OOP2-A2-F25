@@ -122,10 +122,12 @@ public class DeckController implements ScoringStrategy{
             switch (choice) {
                 case "Simple Count":
 
-                    /// this.aKeepScore = this.SimpleCountStrategy();
+                    this.aKeepScore = this.SimpleCountStrategy();
                     /// this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
                     ///
-                    ///  you can uncomment the code above or comment the following one:
+                    /// to choose which method you want to use for the score.
+                    /// you can uncomment the code above or comment the following one
+                    ///
 
                     this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
                     break;
