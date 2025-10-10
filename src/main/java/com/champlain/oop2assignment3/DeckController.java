@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
  * the current state of the deck and hand.
  * </p>
  */
-public class DeckController {
+public class DeckController implements ScoringStrategy{
     /**
      * TextArea for displaying the current state of the deck.
      */
@@ -48,13 +48,16 @@ public class DeckController {
     /**
      * The deck of cards being managed by this controller.
      */
-    private final Deck aDeck = new Deck();
-
+    private final Deck aDeck = Deck.getInstance();
     /**
      * The hand of cards being managed by this controller.
      */
     private final Hand aHand = new Hand();
 
+    /**
+     * To hold the score of cards depending on the chosen strategy
+     */
+    private int aKeepScore;
     /**
      * Initializes the controller and sets up the UI components.
      * This method is called after the FXML file has been loaded.
@@ -118,18 +121,26 @@ public class DeckController {
         } else {
             switch (choice) {
                 case "Simple Count":
-                    // TODO: Replace the following line of code.
-                    this.aScoreLabel.setText("Simple count...");
+
+                    //this.aKeepScore = this.SimpleCountStrategy();
+                    /// this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
+                    ///
+                    /// to choose which method you want to use for the score.
+                    /// you can uncomment the code above or comment the following one
+                    ///
+
+                    this.calculateScore(this.aHand); // Using aHand of type Hand because Hand extends CardCollection
                     break;
                 case "Number Of Aces":
-                    // TODO: Replace the following line of code.
-                    this.aScoreLabel.setText("Number of aces...");
+                    this.aKeepScore = this.NumberOfAcesStrategy();
+                    this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
                     break;
                 default:
                     this.aScoreLabel.setText("This should not happen! You messed up.");
                     break;
             }
         }
+        this.aKeepScore = 0; // To reset aKeepScore
     }
 
     /**
@@ -154,5 +165,57 @@ public class DeckController {
     private void displayCardCollections() {
         this.aDeckTextArea.setText(this.aDeck.toString());
         this.aHandTextArea.setText(this.aHand.toString());
+    }
+
+    /**<p>
+     ** Calculates the score of cards in the parameter {@code pCards}
+     * </p>
+     * */
+    @Override
+    public void calculateScore(CardCollection pCards) {
+
+        if (pCards != null) {
+            for (Card c : pCards) {
+                this.aKeepScore++;
+            }
+        }
+        this.aScoreLabel.setText(String.valueOf(this.aKeepScore));
+    }
+
+    /**
+     * Returns a score corresponding to <b>the number of cards in a hand</b>
+     *
+     * @return a score of type {@code int}.
+     */
+    @Override
+    public int SimpleCountStrategy() {
+
+        if (!this.aHand.isEmpty()) {
+            for (Card ignored : this.aHand) {
+                    this.aKeepScore++;
+            }
+        }
+        return this.aKeepScore;
+    }
+
+    /**
+     * Returns a score corresponding to <b>the number of Aces in a hand</b>
+     *
+     * @return a score of type {@code int}.
+     * */
+    @Override
+    public int NumberOfAcesStrategy() {
+
+        Card keepCards;
+
+        if (!this.aHand.isEmpty()) {
+            for (Card card : this.aHand) {
+                keepCards = card;
+                if (keepCards.getRank() == Rank.ACE) {
+                    this.aKeepScore++;
+                }
+            }
+        }
+        return this.aKeepScore;
     }
 }

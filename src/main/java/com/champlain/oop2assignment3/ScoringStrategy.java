@@ -12,7 +12,7 @@ package com.champlain.oop2assignment3;
 
 public interface ScoringStrategy{
     /**<p>
-     ** Calculates the score of cards in the parameter {@code pCards}
+    ** Calculates the score of cards in the parameter {@code pCards}
      * </p>
      * */
     void calculateScore(CardCollection pCards);
